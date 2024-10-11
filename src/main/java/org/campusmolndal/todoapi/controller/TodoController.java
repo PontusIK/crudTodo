@@ -1,6 +1,7 @@
 package org.campusmolndal.todoapi.controller;
 
 import org.campusmolndal.todoapi.model.Todo;
+import org.campusmolndal.todoapi.model.TodoDto;
 import org.campusmolndal.todoapi.service.TodoService;
 import org.springframework.http.ResponseEntity;
 
@@ -23,7 +24,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping("")
-    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
+    public ResponseEntity<Todo> createTodo(@RequestBody TodoDto todo) {
         return ResponseEntity.ok(todoService.addTodo(todo));
     }
 

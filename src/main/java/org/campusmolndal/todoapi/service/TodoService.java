@@ -2,7 +2,7 @@ package org.campusmolndal.todoapi.service;
 
 import java.time.LocalDate;
 
-import org.campusmolndal.todoapi.Exception.InvalidDateException;
+import org.campusmolndal.todoapi.exception.InvalidDateException;
 import org.campusmolndal.todoapi.model.Todo;
 import org.campusmolndal.todoapi.model.TodoDto;
 import org.campusmolndal.todoapi.repository.TodoRepository;

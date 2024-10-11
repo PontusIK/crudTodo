@@ -15,13 +15,19 @@ import lombok.RequiredArgsConstructor;
 public class TodoService {
     private final TodoRepository todoRepo;
 
-    public Todo addTodo(TodoDto todo) {
-        if (todo.getDeadLine().isBefore(LocalDate.now())) {
+    public Todo addTodo(TodoDto dto) {
+        if (dto.getDeadLine().isBefore(LocalDate.now())) {
             throw new InvalidDateException("Deadline cannot be in the past");
         }
-        todo.setId(null); // låt spring generera id
-        todo.setCreationDate(LocalDate.now());
-        todo.setCompleted(false);
+        Todo todo = new Todo(
+            null,
+            dto.getTitle(),
+            dto.getDescription(),
+            LocalDate.now(),
+            dto.getDeadLine(),
+            false
+        );
+        return todoRepo.save(todo);
     }
 
     public Object findTodoById(Long id) {

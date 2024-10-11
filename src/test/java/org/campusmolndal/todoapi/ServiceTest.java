@@ -3,6 +3,9 @@ package org.campusmolndal.todoapi;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
+
+import org.campusmolndal.todoapi.model.Todo;
 import org.campusmolndal.todoapi.repository.TodoRepository;
 import org.campusmolndal.todoapi.service.TodoService;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,6 +1,7 @@
 package org.campusmolndal.todoapi.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.campusmolndal.todoapi.exception.InvalidDateException;
 import org.campusmolndal.todoapi.exception.ResourceNotFoundException;
@@ -36,9 +37,10 @@ public class TodoService {
             .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
     }
 
-    public Object findAllTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllTodos'");
+    public List<Todo> findAllTodos() {
+        List<Todo> list = todoRepo.findAll();
+        if (list.isEmpty()) throw new ResourceNotFoundException("No Tasks found");
+        return list;
     }
 
     public Object updateTodo(Long id, Todo todo) {

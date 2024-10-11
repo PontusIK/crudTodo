@@ -3,6 +3,7 @@ package org.campusmolndal.todoapi.service;
 import java.time.LocalDate;
 
 import org.campusmolndal.todoapi.exception.InvalidDateException;
+import org.campusmolndal.todoapi.exception.ResourceNotFoundException;
 import org.campusmolndal.todoapi.model.Todo;
 import org.campusmolndal.todoapi.model.TodoDto;
 import org.campusmolndal.todoapi.repository.TodoRepository;
@@ -30,9 +31,9 @@ public class TodoService {
         return todoRepo.save(todo);
     }
 
-    public Object findTodoById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findTodoById'");
+    public Todo findTodoById(Long id) {
+        return todoRepo.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
     }
 
     public Object findAllTodos() {

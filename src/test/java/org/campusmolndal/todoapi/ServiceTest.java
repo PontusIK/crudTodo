@@ -40,9 +40,4 @@ public class ServiceTest {
     void updateTodo() {
 
     }
-
-    @Test
-    void deleteTodo() {
-
-    }
 }

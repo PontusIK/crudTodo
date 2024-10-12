@@ -43,9 +43,11 @@ public class TodoService {
         return list;
     }
 
-    public Object updateTodo(Long id, Todo todo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateTodo'");
+    public Todo updateTodo(Todo todo) {
+        if (!todoRepo.existsById(todo.getId())) throw new ResourceNotFoundException("Task not found");
+        if (todo.getDeadLine().isBefore(LocalDate.now())) throw new InvalidDateException("Deadline cannot be in the past");
+        todo.setCreationDate(findTodoById(todo.getId()).getCreationDate());
+        return todoRepo.save(todo);
     }
 
     public void deleteTodo(Long id) {

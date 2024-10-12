@@ -1,13 +1,15 @@
 package org.campusmolndal.todoapi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 
+import org.campusmolndal.todoapi.exception.InvalidDateException;
 import org.campusmolndal.todoapi.model.Todo;
 import org.campusmolndal.todoapi.model.TodoDto;
 import org.campusmolndal.todoapi.repository.TodoRepository;
@@ -26,7 +28,7 @@ public class ServiceTest {
     }
 
     @Test
-    void createTodo() {
+    void createTodoHappy() {
         TodoDto dto = new TodoDto(
             "title",
             "description",
@@ -48,9 +50,28 @@ public class ServiceTest {
         });
 
         Todo todoActual = todoService.addTodo(dto);
-        
+
         assertEquals(todoExpected, todoActual);
     }
+
+    @Test
+    void createTodoBad() {
+        TodoDto dto = new TodoDto(
+            "title",
+            "description",
+            LocalDate.now().minusDays(10)
+        );
+
+        Exception exception = assertThrowsExactly(InvalidDateException.class, () -> {
+            todoService.addTodo(dto);
+        });
+
+        String expectesMsg = "Deadline cannot be in the past";
+        String actualMsg = exception.getMessage();
+
+        assertTrue(actualMsg.contains(expectesMsg));
+    }
+
 
     @Test
     void readTodo() {

@@ -34,7 +34,7 @@ public class ServiceTest {
         );
 
         Todo todoExpected = new Todo(
-            null,
+            1L,
             dto.getTitle(),
             dto.getDescription(),
             LocalDate.now(),
@@ -49,7 +49,6 @@ public class ServiceTest {
 
         Todo todoActual = todoService.addTodo(dto);
         
-        todoExpected.setId(1L);
         assertEquals(todoExpected, todoActual);
     }
 

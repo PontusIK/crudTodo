@@ -51,7 +51,6 @@ public class TodoService {
     }
 
     public void deleteTodo(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteTodo'");
+        todoRepo.deleteById(id);
     }
 }

@@ -21,4 +21,9 @@ public class Todo {
     private LocalDate creationDate;
     private LocalDate deadLine;
     private boolean completed;
+
+    public Todo setId(Long id) {
+        this.id = id;
+        return this;
+    }
 }

@@ -1,5 +1,7 @@
 package org.campusmolndal.todoapi.controller;
 
+import java.util.List;
+
 import org.campusmolndal.todoapi.model.Todo;
 import org.campusmolndal.todoapi.model.TodoDto;
 import org.campusmolndal.todoapi.service.TodoService;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +39,7 @@ public class TodoController {
         return ResponseEntity.ok(todoService.findAllTodos());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("")
     public ResponseEntity<Todo> updateTodo(@RequestBody Todo todo) {
         return ResponseEntity.ok(todoService.updateTodo(todo));
     }

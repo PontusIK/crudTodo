@@ -8,14 +8,17 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.campusmolndal.todoapi.exception.InvalidDateException;
+import org.campusmolndal.todoapi.exception.ResourceNotFoundException;
 import org.campusmolndal.todoapi.model.Todo;
 import org.campusmolndal.todoapi.model.TodoDto;
 import org.campusmolndal.todoapi.repository.TodoRepository;
 import org.campusmolndal.todoapi.service.TodoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.cglib.core.Local;
 
 public class ServiceTest {
     TodoRepository todoRepo;
@@ -75,7 +78,28 @@ public class ServiceTest {
 
     @Test
     void readTodo() {
+        when(todoRepo.findById(1L)).thenReturn(Optional.of(
+            new Todo(
+                1L,
+                "title",
+                "description",
+                LocalDate.now(),
+                LocalDate.now().plusDays(10),
+                false
+            )
+        ));
 
+        when(todoRepo.findById(2L)).thenReturn(Optional.empty());
+
+        Todo result = todoService.findTodoById(1L);
+        Exception exception = assertThrowsExactly(ResourceNotFoundException.class, () -> {
+            todoService.findTodoById(2L);
+        });
+        String expectesMsg = "Task not found";
+        String actualMsg = exception.getMessage();
+
+        assertTrue(actualMsg.contains(expectesMsg));
+        assertEquals(1L, result.getId());
     }
 
     @Test

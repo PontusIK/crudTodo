@@ -201,6 +201,6 @@ public class ServiceTest {
         String expectedMsg = "Deadline cannot be in the past";
         String actualMsg = exception.getMessage();
 
-        assertTrue(actualMsg.contains(actualMsg));
+        assertTrue(actualMsg.contains(expectedMsg));
     }
 }

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.campusmolndal.todoapi.exception.InvalidDateException;
@@ -18,7 +19,6 @@ import org.campusmolndal.todoapi.repository.TodoRepository;
 import org.campusmolndal.todoapi.service.TodoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.cglib.core.Local;
 
 public class ServiceTest {
     TodoRepository todoRepo;
@@ -103,8 +103,20 @@ public class ServiceTest {
     }
 
     @Test
-    void readAllTodos() {
-
+    void readAllTodosHappy() {
+        when(todoRepo.findAll()).thenReturn(List.of(
+            new Todo(
+                1L,
+                "title",
+                "description",
+                LocalDate.now(),
+                LocalDate.now().plusDays(10),
+                false
+            )
+        ));
+        
+        List<Todo> result = todoService.findAllTodos();
+        assertEquals(1, result.size());
     }
 
     @Test

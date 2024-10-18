@@ -162,4 +162,21 @@ public class ServiceTest {
         assertEquals(updatedTodo.getTitle(), result.getTitle());
         assertEquals(existingTodo.getCreationDate(), result.getCreationDate());
     }
+
+    @Test
+    void updateTodoNotFound() {
+        Todo todo = new Todo();
+        todo.setId(1L);
+        when(todoRepo.existsById(1L)).thenReturn(false);
+
+        Exception exception = assertThrowsExactly(
+            ResourceNotFoundException.class,
+            () -> todoService.updateTodo(todo)    
+        );
+
+        String excpectedMsg = "Task not found";
+        String actualMsg = exception.getMessage();
+
+        assertTrue(actualMsg.contains(excpectedMsg));
+    }
 }

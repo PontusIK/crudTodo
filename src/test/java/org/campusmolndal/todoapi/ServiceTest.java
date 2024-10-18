@@ -179,4 +179,27 @@ public class ServiceTest {
 
         assertTrue(actualMsg.contains(excpectedMsg));
     }
+
+    @Test
+    void updateTodoBadDeadline() {
+        Todo todo = new Todo(
+            1L,
+            "title",
+            "description",
+            LocalDate.now(),
+            LocalDate.now().minusDays(10),
+            false
+        );
+        when(todoRepo.existsById(1L)).thenReturn(true);
+
+        Exception exception = assertThrowsExactly(
+            InvalidDateException.class,
+            () -> todoService.updateTodo(todo)
+        );
+
+        String expectedMsg = "Deadline cannot be in the past";
+        String actualMsg = exception.getMessage();
+
+        assertTrue(actualMsg.contains(actualMsg));
+    }
 }

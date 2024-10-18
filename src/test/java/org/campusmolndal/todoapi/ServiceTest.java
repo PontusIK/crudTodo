@@ -1,6 +1,7 @@
 package org.campusmolndal.todoapi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -119,6 +120,19 @@ public class ServiceTest {
         assertEquals(1, result.size());
     }
 
+    @Test
+    void readAllTodosBad() {
+        when(todoRepo.findAll()).thenReturn(List.of());
+        
+        Exception exception = 
+            assertThrowsExactly(ResourceNotFoundException.class,
+                () -> todoService.findAllTodos());
+    
+        String expectedMsg = "No Tasks found";
+        String actualMsg = exception.getMessage();
+        
+        assertTrue(actualMsg.contains(expectedMsg));
+    }
     @Test
     void updateTodo() {
 

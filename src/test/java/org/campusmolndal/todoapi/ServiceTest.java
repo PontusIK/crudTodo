@@ -124,9 +124,10 @@ public class ServiceTest {
     void readAllTodosBad() {
         when(todoRepo.findAll()).thenReturn(List.of());
         
-        Exception exception = 
-            assertThrowsExactly(ResourceNotFoundException.class,
-                () -> todoService.findAllTodos());
+        Exception exception = assertThrowsExactly(
+            ResourceNotFoundException.class,
+            () -> todoService.findAllTodos()
+        );
     
         String expectedMsg = "No Tasks found";
         String actualMsg = exception.getMessage();

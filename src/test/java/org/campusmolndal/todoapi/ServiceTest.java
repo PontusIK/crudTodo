@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -202,5 +204,11 @@ public class ServiceTest {
         String actualMsg = exception.getMessage();
 
         assertTrue(actualMsg.contains(expectedMsg));
+    }
+
+    @Test
+    void deleteTodo() {
+        todoService.deleteTodo(1L);
+        verify(todoRepo, times(1)).deleteById(1L);
     }
 }

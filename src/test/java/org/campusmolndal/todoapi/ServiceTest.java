@@ -134,7 +134,32 @@ public class ServiceTest {
         assertTrue(actualMsg.contains(expectedMsg));
     }
     @Test
-    void updateTodo() {
+    void updateTodoHappy() {
+        Todo existingTodo = new Todo(
+            1L,
+            "original title",
+            "original description",
+            LocalDate.now(),
+            LocalDate.now().plusDays(10),
+            false
+        );
+        Todo updatedTodo = new Todo(
+            1L,
+            "updated title",
+            "updated description",
+            LocalDate.now(),
+            LocalDate.now().plusDays(10),
+            true
+        );
+        when(todoRepo.existsById(1L)).thenReturn(true);
+        when(todoRepo.findById(1L))
+            .thenReturn(Optional.of(existingTodo));
+        when(todoRepo.save(any(Todo.class)))
+            .thenReturn(updatedTodo);
 
+        Todo result = todoService.updateTodo(updatedTodo);
+
+        assertEquals(updatedTodo.getTitle(), result.getTitle());
+        assertEquals(existingTodo.getCreationDate(), result.getCreationDate());
     }
 }

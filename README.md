@@ -47,23 +47,23 @@ in Option settings for launch templates to successfully create a new environment
 
 * POST /api/todo
 
-    {
-        "title": "todo-title",
-        "description": "todo-description",
-        "deadLine": "yyyy-mm-dd"
+    {  
+        "title": "todo-title",  
+        "description": "todo-description",  
+        "deadLine": "yyyy-mm-dd"  
     }
 
 * GET /api/todo/{id}
 * GET /api/todo/all
 * PUT /api/todo/
 
-    {
-        "id": <id för todo som ska uppdateras eg. 1>,
-        "title": "todo-title",
-        "description": "todo-description",
-        "creationDate": "yyyy-mm-dd",
-        "deadLine": "yyyy-mm-dd",
-        "completed": true
+    {  
+        "id": <id för todo som ska uppdateras eg. 1>,  
+        "title": "todo-title",  
+        "description": "todo-description",  
+        "creationDate": "yyyy-mm-dd",  
+        "deadLine": "yyyy-mm-dd",  
+        "completed": true  
     }
 
 * DELETE /api/todo/{id}

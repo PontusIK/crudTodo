@@ -41,10 +41,21 @@ av AWS och använder man dem kommer ens application environment inte fungera.
 in Option settings for launch templates to successfully create a new environment.  
 > The Auto Scaling service will only create environments for new accounts using launch templates.
 
+### Push till Deployment
+
+I mitt github repository använder jag github actions  
+för att testa min kod efter varje ändring i main branchen.
+
+Sedan använder jag CodeBuild för att hämta koden från github  
+och bygga den in AWS.  
+Om det lyckas tar CodePipeline resultatet och deployar det på
+min Elastic Beanstalk environment.
+
 ### Endpoints
 
 #### Base-URL: http://crudtodoweb-env-1.eba-qrmbpadq.eu-north-1.elasticbeanstalk.com
 
+* swagger /swagger-ui.html
 * POST /api/todo
 
     {  
@@ -65,5 +76,7 @@ in Option settings for launch templates to successfully create a new environment
         "deadLine": "yyyy-mm-dd",  
         "completed": true  
     }
+
+    *notera att id i bodyn är för det objektet som ska uppdateras och resten är värdena den ska få*
 
 * DELETE /api/todo/{id}
